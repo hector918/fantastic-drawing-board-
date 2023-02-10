@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const sessions = require("express-session");
-var FileStore = require('session-file-store')(sessions);
+const FileStore = require('session-file-store')(sessions);
 const app = express();
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
@@ -12,7 +12,7 @@ app.use(sessions({
   saveUninitialized: true,
   cookie: { maxAge: 86400000 },//oneday
   store: new FileStore({}),
-  sameSite : "lax"
+  sameSite : "true"
 }));
 // app.use(express.static("./frontend/build"));
 // function auth(req, res, next) {
@@ -29,8 +29,7 @@ app.use(sessions({
   
 // }
 
-
-/////////////////////////////////////////////
+//routing///////////////////////////////////////////
 app.use("/draw", require('./controller/drawing-board-controller'));
 
 app.get("*", (req, res) => {

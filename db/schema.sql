@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS users, drawings;
 
 CREATE TABLE users (
  id SERIAL PRIMARY KEY,
- name TEXT NOT NULL,
+ name TEXT NOT NULL UNIQUE,
  sessionID TEXT,
  timestamp TIMESTAMP
 
