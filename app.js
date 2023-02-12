@@ -15,27 +15,25 @@ app.use(sessions({
   sameSite : "true"
 }));
 // app.use(express.static("./frontend/build"));
-// function auth(req, res, next) {
-//   // Checking for the session
-//   console.log(req.sessionID,req.session.username,req.originalUrl);
-//   if(!req.session.username)
-//   {
-//     res.status(401).redirect('/');
-//   }
-//   else
-//   {
-//     next();
-//   }
-  
-// }
+function auth(req, res, next) {
+  // Checking for the session
+  console.log(req.sessionID,req.session.username,req.originalUrl);
+  if(!req.session.username)
+  {
+    res.status(403).redirect('/');
+  }else{
+    next();
+  }
+}
 
 //routing///////////////////////////////////////////
+app.use("/draw/login", require('./controller/drawing-board-nolog-controller'));
+
 app.use("/draw", require('./controller/drawing-board-controller'));
 
 app.get("*", (req, res) => {
-  console.log(req.session,req.sessionID,"a")
+  console.log(req.session,req.sessionID,"a");
   res.status(404).send("no page found!");
 });
-
 ////////////////////////////////////////////////
 module.exports = app;

@@ -18,6 +18,7 @@ CREATE TABLE drawings (
  id SERIAL PRIMARY KEY,
  name TEXT NOT NULL,
  user_id INT,
+ board_size TEXT NOT NULL,
  moves TEXT,
  description TEXT,
  timestamp TIMESTAMP 
