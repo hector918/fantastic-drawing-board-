@@ -21,5 +21,6 @@ CREATE TABLE drawings (
  board_size TEXT NOT NULL,
  moves TEXT,
  description TEXT,
- timestamp TIMESTAMP 
+ timestamp TIMESTAMP,
+ deleted BOOLEAN DEFAULT false
 );

@@ -1,4 +1,4 @@
-const db = require("../db/dbConfig.js");
+const {db} = require("../db/dbConfig.js");
 
 const upsert = async (username, sessionID, timestamp = new Date().toISOString()) => {
   try {

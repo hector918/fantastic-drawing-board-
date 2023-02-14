@@ -21,6 +21,18 @@ drawingboard.post("/uploaddrawing", async (req, res)=>{
   }
 })
 
+drawingboard.delete("/uploaddrawing/:id", async (req, res)=>{
+  try {
+    let { id } = req.params;
+    let ret = await drawings.deletedrawing( id );
+
+    res.json({id:ret.id});
+
+  } catch (error) {
+    res.status(500).json({error});    
+  }
+})
+
 drawingboard.put("/uploaddrawing/:id", async (req, res)=>{
   try {
     let { id } = req.params;
@@ -36,7 +48,7 @@ drawingboard.put("/uploaddrawing/:id", async (req, res)=>{
     res.json({id:ret.id});
     
   } catch (error) {
-    
+    console.log(error)
     res.status(500).json({error});    
   }
 })

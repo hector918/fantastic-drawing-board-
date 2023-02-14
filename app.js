@@ -14,26 +14,29 @@ app.use(sessions({
   store: new FileStore({}),
   sameSite : "true"
 }));
-// app.use(express.static("./frontend/build"));
+app.use(express.static("./public/build"));
 function auth(req, res, next) {
   // Checking for the session
-  console.log(req.sessionID,req.session.username,req.originalUrl);
-  if(!req.session.username)
+  // console.log(req.sessionID,req.session,req.originalUrl);
+  if(req.session.user_name === undefined)
   {
-    res.status(403).redirect('/');
+    res.status(403).send('no auth');
   }else{
     next();
   }
 }
-
 //routing///////////////////////////////////////////
 app.use("/draw/login", require('./controller/drawing-board-nolog-controller'));
 
-app.use("/draw", require('./controller/drawing-board-controller'));
+app.use("/draw/all", require('./controller/drawings-controller'));
+
+app.use("/draw", auth, require('./controller/drawing-board-controller'));
+
+
 
 app.get("*", (req, res) => {
-  console.log(req.session,req.sessionID,"a");
-  res.status(404).send("no page found!");
+  // console.log(req.session,req.sessionID,"a");
+  res.status(404).send("<h1>404</h1>no page found!");
 });
 ////////////////////////////////////////////////
 module.exports = app;
