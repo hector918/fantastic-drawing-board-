@@ -26,6 +26,15 @@ const deletedrawing = async (id) => {
     
   }
 }
+
+const get_drawing_by_drawing_id = async ( id ) => {
+  try {
+    return await db.oneOrNone(`SELECT id, name, description, board_size, moves, timestamp FROM drawings WHERE id=$[id] AND deleted = false ;`, {id});
+  } catch (error) {
+    throw error;
+  }
+}
+
 const get_all_drawing_by_userid = async ( id ) => {
   try {
     return await db.manyOrNone(`SELECT id, name, description, board_size, moves, timestamp FROM drawings WHERE user_id=$[id] AND deleted = false ;`, {id});
@@ -33,7 +42,6 @@ const get_all_drawing_by_userid = async ( id ) => {
     throw error;
   }
 }
-
 
 const get_all_drawing = async ( ) => {
   try {
@@ -43,4 +51,4 @@ const get_all_drawing = async ( ) => {
   }
 }
 
-module.exports = { uploaddrawing, updatedrawing, deletedrawing, get_all_drawing_by_userid, get_all_drawing }
+module.exports = { uploaddrawing, updatedrawing, deletedrawing, get_all_drawing_by_userid, get_all_drawing, get_drawing_by_drawing_id }

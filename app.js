@@ -5,7 +5,6 @@ const FileStore = require('session-file-store')(sessions);
 const app = express();
 app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
-
 app.use(sessions({
   secret: 'sessionsecret1235934!@W@hjghj3059',
   resave: false,
@@ -15,6 +14,7 @@ app.use(sessions({
   sameSite : "true"
 }));
 app.use(express.static("./public/build"));
+
 function auth(req, res, next) {
   // Checking for the session
   // console.log(req.sessionID,req.session,req.originalUrl);
@@ -31,8 +31,6 @@ app.use("/draw/login", require('./controller/drawing-board-nolog-controller'));
 app.use("/draw/all", require('./controller/drawings-controller'));
 
 app.use("/draw", auth, require('./controller/drawing-board-controller'));
-
-
 
 app.get("*", (req, res) => {
   // console.log(req.session,req.sessionID,"a");
