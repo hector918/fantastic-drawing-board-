@@ -25,6 +25,11 @@ function auth(req, res, next) {
     next();
   }
 }
+// custom error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('server error!');
+});
 //routing///////////////////////////////////////////
 app.use("/draw/login", require('./controller/drawing-board-nolog-controller'));
 
@@ -36,5 +41,6 @@ app.get("*", (req, res) => {
   // console.log(req.session,req.sessionID,"a");
   res.status(404).send("<h1>404</h1>no page found!");
 });
+
 ////////////////////////////////////////////////
 module.exports = app;
