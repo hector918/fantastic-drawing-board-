@@ -11,10 +11,10 @@ app.use(sessions({
   saveUninitialized: true,
   cookie: { maxAge: 86400000 },//oneday
   store: new FileStore({}),
-  sameSite : "true"
+  sameSite : "true",
+
 }));
 app.use(express.static("./public/build"));
-
 function auth(req, res, next) {
   // Checking for the session
   // console.log(req.sessionID,req.session,req.originalUrl);
@@ -26,6 +26,7 @@ function auth(req, res, next) {
   }
 }
 // custom error handler
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('server error!');
