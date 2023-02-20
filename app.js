@@ -9,10 +9,12 @@ app.use(sessions({
   secret: 'sessionsecret1235934!@W@hjghj3059',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 86400000 },//oneday
+  cookie: { 
+    maxAge: 86400000, //oneday
+    sameSite : "Lax" ,
+ 
+  },
   store: new FileStore({}),
-  sameSite : "true",
-
 }));
 app.use(express.static("./public/build"));
 function auth(req, res, next) {
